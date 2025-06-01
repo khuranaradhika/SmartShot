@@ -16,7 +16,7 @@ struct ProcessingRequest: Codable {
 
 // MARK: - Network Service
 class AlbumProcessingService: ObservableObject {
-    private let baseURL = "http://localhost:5000" // Change to your Flask server URL
+    private let baseURL = "http://localhost:5000"
     
     func processAlbum(albumPath: String) async throws -> AlbumProcessingResponse {
         guard let url = URL(string: "\(baseURL)/api/process_album") else {
@@ -243,9 +243,6 @@ struct ContentView: View {
             }
             
             do {
-                // For now, we'll use the albumPath. In a full implementation,
-                // you'd need to save selected photos to a temporary directory
-                // and pass that path to the backend
                 let path = albumPath.isEmpty ? "/tmp/selected_photos" : albumPath
                 let result = try await processingService.processAlbum(albumPath: path)
                 
